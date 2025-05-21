@@ -64,12 +64,11 @@ export default function HomePage() {
             </ul>
           </nav>
         </div>
-        <div className="h-[100vh] border-1 border-red-500 flex justify-center items-center">
-          THis is the main page or the body of the site
+        <div className="h-[100vh] flex flex-col justify-center items-center">
+          <h1 className="w-100 text-6xl font-thin">Discover</h1>
+          <h2 className="text-7xl font-thin w-100">your world</h2>
         </div>
-        <div className="text-center py-3 px-4">
-          This is the footer of the site
-        </div>
+        <div className="text-center py-3 px-4">Jao vai jao ghas charne jao</div>
       </div>
     </div>
   );
