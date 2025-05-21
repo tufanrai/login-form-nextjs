@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tufan Rai | Portfolio",
-  description: "web developer",
+  title: "Expense Tracker",
+  description:
+    "Track your expenses with ease and controll your over spending habits",
 };
 
 export default function RootLayout({

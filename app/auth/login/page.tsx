@@ -6,6 +6,7 @@ import backgroundImg from "@/img/goGreen.jpg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ILogin } from "@/interfaces/auth";
 import { CiLock, CiMail } from "react-icons/ci";
+import { GoArrowLeft } from "react-icons/go";
 
 const Login = () => {
   const {
@@ -33,18 +34,19 @@ const Login = () => {
       }}
     >
       {/* wrapper div */}
-      <div className="w-100 box backdrop-blur-[5px] border border-white h-auto p-5 rounded-ss-xl rounded-ee-xl">
+      <div className="w-100 box backdrop-blur-[5px] border border-white h-auto p-5 rounded-ss-xl relative rounded-ee-xl">
+        <Link href={"/"}>
+          <GoArrowLeft className="absolute top-10 text-white left-5 text-2xl" />
+        </Link>
         {/* login header */}
         <h1 className="text-center text-white text-2xl font-black p-2 mb-3">
           Log in
         </h1>
-        // wrapper div
         <div className="p-2 flex flex-col">
           <form onSubmit={handleSubmit(submit)}>
             {/* email div */}
             <div className="flex flex-col relative">
               <CiMail className="text-white absolute top-1 left-11" />
-              icon
               <label className="text-base  text-white font-light">Email</label>
               <input
                 className={`text-sm text-white border-b-1 focus:outline-0 border-sky-300 px-3 py-2 ${

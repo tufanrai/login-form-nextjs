@@ -1,103 +1,150 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { CiMail, CiUser, CiLock } from "react-icons/ci";
+import Image from "next/image";
+import backgroundImg from "@/img/goGreen.jpg";
+import { FaRegCircleUser, FaRegEnvelope } from "react-icons/fa6";
+import { IoIosLock } from "react-icons/io";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SignUpData } from "@/interfaces/auth";
+import { GoArrowLeft } from "react-icons/go";
 
-const Signin = () => {
-  const [Data, setData] = useState({});
+const SignUP = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(SignUpData),
+  });
 
-  const updatetForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name, e.target.value);
-    setData({ ...Data, [e.target.name]: e.target.value });
-    console.log(Data);
+  const onSubmit = (data: Object) => {
+    console.log(data);
   };
-  return (
-    <div className="w-full h-screen flex justify-center items-center p-10">
-      <div className="w-100 border-2 rounded-lg border-sky-400 px-10 py-5">
-        {/* title */}
-        <h1 className="text-center text-slate-700 font-black text-2xl">
-          Sign in
-        </h1>
-        <div className="flex flex-col-reverse my-10 gap-4">
-          {/* fullname */}
 
-          <input
-            onChange={updatetForm}
-            className="w-full px-5 py-2 font-medium border-b-1 text-sm text-start focus:outline-1 outline-none "
-            type="text"
-            placeholder="David Jhonson"
-            name="Name"
-            id="Name"
-          />
-          <label className="text-sm flex font-medium items" htmlFor="">
-            <CiUser />
-            Full name
-          </label>
+  return (
+    <div
+      className="w-full bg-black text-white h-screen flex justify-center items-center"
+      style={{
+        backgroundImage: `url(${backgroundImg.src})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "fill",
+      }}
+    >
+      <div className="w-100 border-2 border-sky-400 backdrop-blur-[10px] rounded-ss-2xl relative shadow-lg shadow-sky-300 rounded-ee-2xl px-5 py-2">
+        <Link href={"/"}>
+          <GoArrowLeft className="absolute top-10 left-5 text-2xl" />
+        </Link>
+        <h1 className="text-center text-xl py-5 font-semibold">Sing Up</h1>
+        <div className="my-5 p-2">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* full name div */}
+            <div className="flex flex-col mb-5 relative">
+              <FaRegCircleUser className="absolute top-8 left-0" />
+              <label className="text-sm font-light">Full name</label>
+              <input
+                className={`pl-5 pr-2 py-2 text-white focus:outline-0  ${
+                  errors.email
+                    ? "border-b-1 border-red-400"
+                    : "border-b-1 border-sky-400"
+                }`}
+                placeholder="Jhon doe"
+                {...register("full_name")}
+                type="text"
+              />
+              {errors.full_name && (
+                <p className="text-xs p-3 text-red-400 font-thin">
+                  {errors.full_name.message}
+                </p>
+              )}
+            </div>
+            {/* email div */}
+            <div className="flex flex-col mb-5 relative">
+              <FaRegEnvelope className="absolute top-8 left-0" />
+              <label className="text-sm font-light">Email</label>
+              <input
+                className={`pl-5 pr-2 py-2 text-white focus:outline-0  ${
+                  errors.email
+                    ? "border-b-1 border-red-400"
+                    : "border-b-1 border-sky-400"
+                }`}
+                placeholder="doejhon@gmail.com"
+                {...register("email")}
+                type="text"
+              />
+              {errors.email && (
+                <p className="text-xs p-3 text-red-400 font-thin">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+            {/* Password div */}
+            <div className="flex flex-col mb-5 relative">
+              <IoIosLock className="absolute left-0 top-8" />
+              <label className="text-sm font-light">Password</label>
+              <input
+                className={`pl-5 pr-2 py-2 text-white focus:outline-0  ${
+                  errors.email
+                    ? "border-b-1 border-red-400"
+                    : "border-b-1 border-sky-400"
+                }`}
+                placeholder="Password"
+                {...register("password")}
+                type="password"
+              />
+              {errors.password && (
+                <p className="text-xs p-3 text-red-400 font-thin">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+            {/* Confirm passowrd */}
+            <div className="flex flex-col mb-5 relative">
+              <IoIosLock className="absolute top-8 left-0" />
+              <label className="text-sm font-light">Confirm password</label>
+              <input
+                className={`pl-5 pr-2 py-2 text-white focus:outline-0  ${
+                  errors.email
+                    ? "border-b-1 border-red-400"
+                    : "border-b-1 border-sky-400"
+                }`}
+                placeholder="Password"
+                {...register("Confirm_password")}
+                type="password"
+              />
+              {errors.Confirm_password && (
+                <p className="text-xs p-3 text-red-400 font-thin">
+                  {errors.Confirm_password.message}
+                </p>
+              )}
+            </div>
+            {/* button */}
+            <div className="flex flex-col mb-5">
+              <button
+                className="rounded-md cursor-pointer py-3 text-center text-md font-semibold text-sky-400 border ease duration-200 border-sky-400 hover:bg-sky-500 hover:text-white"
+                type="submit"
+              >
+                Sign up
+              </button>
+              <p className="mt-5">
+                Already have an account?{" "}
+                <span>
+                  <Link
+                    className="text-sky-300 text-sm font-thin underline"
+                    href="/auth/login"
+                  >
+                    Log in
+                  </Link>
+                </span>
+              </p>
+            </div>
+          </form>
         </div>
-        <div className="flex flex-col-reverse my-10 gap-4">
-          {/* email */}
-          <input
-            onChange={updatetForm}
-            className="w-full px-5 py-2 text-base font-medium border-b-1 text-start focus:outline-1 outline-none "
-            type="email"
-            placeholder="demomail@gmail.com"
-            name="email"
-            id="email"
-          />
-          <label className="w-full text-sm flex items-center " htmlFor="">
-            <CiMail className="text-lg" /> Email
-          </label>
-        </div>
-        {/* password */}
-        <div className="flex flex-col-reverse my-10 gap-4">
-          <input
-            onChange={updatetForm}
-            className="w-full px-5 py-2 text-base font-medium border-b-1 text-start focus:outline-1 outline-none "
-            type="password"
-            placeholder="password"
-            name="password"
-            id="password"
-          />
-          <label className="text-sm flex items-center" htmlFor="">
-            <CiLock />
-            Password
-          </label>
-        </div>
-        {/* confirm password */}
-        <div className="flex flex-col-reverse my-10 gap-4">
-          <input
-            onChange={updatetForm}
-            className="w-full px-5 py-2 text-base font-medium border-b-1 text-start focus:outline-1 outline-none "
-            type="password"
-            placeholder="Confirm password"
-            name="Confirm_password"
-            id="Confirm-password"
-          />
-          <label className="text-sm flex items-center" htmlFor="">
-            <CiLock />
-            Confirm password
-          </label>
-        </div>
-        {/* Button */}
-        <div className="w-full">
-          <input
-            className="text-neutral-50 bg-sky-400 w-full px-20 py-3 font-bold cursor-pointer hover:bg-sky-500 duration-200 ease rounded-sm"
-            type="submit"
-            value="Sign in"
-          />
-        </div>
-        {/* don't have password */}
-        <p className="my-5 text-center">
-          Already have an account?{" "}
-          <span>
-            <Link href="/auth/login" className="underline text-sky-400">
-              Log in
-            </Link>
-          </span>
-        </p>
       </div>
     </div>
   );
 };
 
-export default Signin;
+export default SignUP;
