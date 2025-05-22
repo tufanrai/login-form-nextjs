@@ -13,6 +13,9 @@ export const SignUpData = yup
       .string()
       .required("please enter your password")
       .min(6, "password should be of at lease 6 characters"),
-    Confirm_password: yup.string().required("please re enter your password"),
+    Confirm_password: yup
+      .string()
+      .required("please re enter your password")
+      .oneOf([yup.ref("password")], "password did not matched"),
   })
   .required();
